@@ -92,20 +92,21 @@ class Echogram(object):
         # Determine what matplotlib container we have.  We must be passed
         # a figure or axes or None.  If we're passed a figure, we assume we're
         # rendering to the "active" axes.  If passed None, we create a figure.
-        if mpl_container is None:
-            self.figure = figure()
-            self.axes = self.figure.gca()
-        elif isinstance(mpl_container, figure.Figure):
-            self.figure = mpl_container
-            self.axes = mpl_container.gca()
-        elif isinstance(mpl_container, axes._subplots.Subplot):
-            self.figure = None
-            self.axes = mpl_container
-        else:
-            raise ValueError("You must pass either a matplotlib figure or " +
-                             "subplot specifying where the echogram will be "
-                             "rendered.")
+        # if mpl_container is None:
+        #     self.figure = plt.figure()
+        #     self.axes = self.figure.gca()
+        # elif isinstance(mpl_container, figure.Figure):
+        #     self.figure = mpl_container
+        #     self.axes = mpl_container.gca()
+        # elif isinstance(mpl_container, axes._subplots.Subplot):
+        #     self.figure = None
+        #     self.axes = mpl_container
+        # else:
+        #     raise ValueError("You must pass either a matplotlib figure or " +
+        #                      "subplot specifying where the echogram will be "
+        #                      "rendered.")
 
+        self.axes = plt.gca()
         # Store a reference to our ping_data or ProcessedData object.
         self.data_object = data_object
 
@@ -113,6 +114,8 @@ class Echogram(object):
         # If not provided, we assume we're plotting a processed_data object
         # whose data attribute is "data".
         if data_attribute:
+            print("data_attribute: " + data_attribute,self.data_object.keys())
+
             if not hasattr(self.data_object, data_attribute):
                 raise ValueError("The data_attribute : " + data_attribute +
                                  "does not exist in the data_object provided.")
@@ -239,7 +242,7 @@ class Echogram(object):
         add_colorbar adds a colorbar on the right side of the echogram in the provided
         figure.
         """
-        cb = fig.colorbar(self.axes_image)
+        cb = plt.colorbar(self.axes_image)
         cb.set_label(units)
 
 
@@ -365,7 +368,7 @@ class Echogram(object):
         xticks = self.data_object.ping_time.astype('float')
 
         # Plot the sample data.
-        self.axes_image = self.axes.imshow(
+        self.axes_image = plt.imshow(
             echogram_data, cmap=self.cmap, vmin=threshold[0], vmax=threshold[
                 1], aspect='auto', interpolation='none', extent=[
                 xticks[0], xticks[-1], yticks[-1], yticks[0]], origin='upper')

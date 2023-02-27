@@ -6,4 +6,3 @@ pytz
 future
 PyQT5
 basemap
-cartopy

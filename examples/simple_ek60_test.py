@@ -10,7 +10,7 @@ inserting data from different sample intervals, and using matplotlib to
 plot echograms.
 """
 
-from matplotlib.pyplot import figure, show, subplots_adjust, get_cmap
+import matplotlib.pyplot as plt
 from echolab2.instruments import EK60
 from echolab2.plotting.matplotlib import echogram
 
@@ -24,10 +24,9 @@ rawfiles = ['./data/EK60/DY1201_EK60-D20120214-T231011.raw',
             './data/EK60/DY1706_EK60-D20170609-T005736.raw']
 
 # Create a matplotlib figure to plot our echograms on.
-fig = figure()
 # Set some properties for the sub plot layout.
-subplots_adjust(left=0.11, bottom=0.1, right=0.98, top=.93, wspace=None,
-                hspace=0.9)
+# subplots_adjust(left=0.11, bottom=0.1, right=0.98, top=.93, wspace=None,
+#                 hspace=0.9)
 
 # Create an instance of the EK60 instrument. This is the top level object used
 # to interact with EK60 and  data sources.
@@ -125,7 +124,8 @@ print(raw_data_38_2)
 # objects are stored in the order read, inserted, or appended. NOT in time order.
 # Also, data in raw_data objects are not gridded. Adjacent samples may or may be
 # adjacent after converting to "processed data".
-raw_data_38_1.append(raw_data_38_2)
+
+#raw_data_38_1.append(raw_data_38_2)
 
 # The result of this append is that raw_data_38_1 now contains data from 899
 # pings. The first 136 pings are the 2012 data and the next 763 the 2017
@@ -136,7 +136,7 @@ print(raw_data_38_1)
 # Insert the 2nd object's data into the first at ping 50. Using the insert
 # method we will insert the 2nd object's 763 pings into the first object
 # starting at ping 51.
-raw_data_38_1.insert(raw_data_38_2, ping_number=50, insert_after=True)
+#raw_data_38_1.insert(raw_data_38_2, ping_number=50, insert_after=True)
 
 # Now raw_data_38_1 contains 1662 pings. Pings 1-50 are from the 2012 data.
 # Pings 51-813 are the 763 pings from the 2012 data. Pings 814-899 are the
@@ -145,10 +145,11 @@ raw_data_38_1.insert(raw_data_38_2, ping_number=50, insert_after=True)
 print(raw_data_38_1)
 
 # Create an axis.
-ax_1 = fig.add_subplot(3, 1, 1)
+# ax_1 = fig.add_subplot(3, 1, 1)
+plt.subplots(311)
 # Create an echogram to plot up the raw sample data.
-echogram_2 = echogram.Echogram(ax_1, raw_data_38_1, 'power')
-ax_1.set_title("Power as stored in raw_data object")
+echogram_2 = echogram.Echogram(None, raw_data_38_1, )
+plt.title("Power as stored in raw_data object")
 
 # You will notice that the 2017 data has more samples so there will be empty
 # samples padding the 2012 data. Also notice that the data is not in time order
@@ -197,10 +198,10 @@ processed_power_1 = raw_data_38_1.get_power()
 print(processed_power_1)
 
 # Create an axis.
-ax_2 = fig.add_subplot(3, 1, 2)
+plt.subplots(312)
 # Create an echogram which will display on our newly created axis.
-echogram_2 = echogram.Echogram(ax_2, processed_power_1)
-ax_2.set_title("Power data in time order")
+echogram_2 = echogram.Echogram(None, processed_power_1)
+plt.title("Power data in time order")
 
 cal_obj = raw_data_38_1.get_calibration()
 
@@ -210,41 +211,41 @@ Sv = raw_data_38_1.get_Sv(calibation=cal_obj)
 print(Sv)
 
 # Create another axis.
-ax_3 = fig.add_subplot(3, 1, 3)
+plt.subplots(313)
 # Create an echogram which will display on our newly created axis.
-echogram_3 = echogram.Echogram(ax_3, Sv, threshold=[-70,-34])
-ax_3.set_title("Sv data in time order")
+echogram_3 = echogram.Echogram(None, Sv, threshold=[-70,-34])
+plt.title("Sv data in time order")
 
 # Show our figure.
-show()
+plt.show()
 
 # Create another matplotlib figure.
-fig = figure()
-# Set some properties for the sub plot layout.
-subplots_adjust(left=0.1, bottom=0.1, right=0.98, top=.93, wspace=None,
-                hspace=0.5)
+# fig = figure()
+# # Set some properties for the sub plot layout.
+# subplots_adjust(left=0.1, bottom=0.1, right=0.98, top=.93, wspace=None,
+#                 hspace=0.5)
 
-angle_cmap = get_cmap('plasma')
+# angle_cmap = get_cmap('plasma')
 
-# Now request angles data in time order.
-angles_along, angles_athwart = raw_data_38_1.get_physical_angles()
-print(angles_along)
-print(angles_athwart)
+# # Now request angles data in time order.
+# angles_along, angles_athwart = raw_data_38_1.get_physical_angles()
+# print(angles_along)
+# print(angles_athwart)
 
-# Create another axis.
-ax_1 = fig.add_subplot(2, 1, 1)
-# Create an echogram which will display on our newly created axis.
-echogram_3 = echogram.Echogram(ax_1, angles_along, cmap=angle_cmap)
-ax_1.set_title("angles_alongship data in time order")
+# # Create another axis.
+# ax_1 = fig.add_subplot(2, 1, 1)
+# # Create an echogram which will display on our newly created axis.
+# echogram_3 = echogram.Echogram(ax_1, angles_along, cmap=angle_cmap)
+# ax_1.set_title("angles_alongship data in time order")
 
-# Create another axis.
-ax_2 = fig.add_subplot(2, 1, 2)
-# Create an echogram which will display on our newly created axis.
-echogram_3 = echogram.Echogram(ax_2, angles_athwart, cmap=angle_cmap)
-ax_2.set_title("angles_athwartship data in time order")
+# # Create another axis.
+# ax_2 = fig.add_subplot(2, 1, 2)
+# # Create an echogram which will display on our newly created axis.
+# echogram_3 = echogram.Echogram(ax_2, angles_athwart, cmap=angle_cmap)
+# ax_2.set_title("angles_athwartship data in time order")
 
-# Show our figure.
-show()
+# # Show our figure.
+# show()
 
 
 pass
