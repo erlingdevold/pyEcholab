@@ -148,7 +148,7 @@ print(raw_data_38_1)
 # ax_1 = fig.add_subplot(3, 1, 1)
 plt.subplots(311)
 # Create an echogram to plot up the raw sample data.
-echogram_2 = echogram.Echogram(None, raw_data_38_1, )
+echogram_2 = echogram.Echogram(None, raw_data_38_1, 'power')
 plt.title("Power as stored in raw_data object")
 
 # You will notice that the 2017 data has more samples so there will be empty

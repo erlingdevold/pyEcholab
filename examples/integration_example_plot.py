@@ -121,16 +121,11 @@ vessel heave.
 '''
 
 # specify some data files
-rawfiles = ['C:/EK Test Data/EK60/DY1807/DY1807_EK60-D20180607-T223129.raw',
-            'C:/EK Test Data/EK60/DY1807/DY1807_EK60-D20180607-T223821.raw',
-            'C:/EK Test Data/EK60/DY1807/DY1807_EK60-D20180607-T224512.raw',
-            'C:/EK Test Data/EK60/DY1807/DY1807_EK60-D20180607-T225202.raw']
+rawfiles = ['./data/EK60/DY1201_EK60-D20120214-T231011.raw',
+            ]
 
 # and the matching bottom files.
-botfiles = ['C:/EK Test Data/EK60/DY1807/DY1807_EK60-D20180607-T223129.bot',
-            'C:/EK Test Data/EK60/DY1807/DY1807_EK60-D20180607-T223821.bot',
-            'C:/EK Test Data/EK60/DY1807/DY1807_EK60-D20180607-T224512.bot',
-            'C:/EK Test Data/EK60/DY1807/DY1807_EK60-D20180607-T225202.bot']
+botfiles = ['./data/EK60/DY1201_EK60-D20120214-T231011.bot',]
 
 
 # Use the echosounder function read our data. This function figures
